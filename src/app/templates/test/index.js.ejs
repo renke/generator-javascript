@@ -1,0 +1,10 @@
+/*global describe, it*/
+import {expect} from "chai";
+
+import <%= moduleName %> from "../src";
+
+describe("<%= moduleName %>", () => {
+  it("should return foo", () => {
+    expect(<%= moduleName %>()).to.equal("foo");
+  });
+});
