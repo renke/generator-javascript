@@ -132,6 +132,8 @@ module.exports = generator.Base.extend({
   end() {
     this.spawnCommandSync("git", ["init"]);
     this.spawnCommandSync("git", ["commit", "--allow-empty", "-m", "Empty commit"]);
+    this.spawnCommandSync("git", ["add", "."]);
+    this.spawnCommandSync("git", ["commit", "-m", "Initial commit"]);
   },
 });
 
