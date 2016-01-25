@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-npm install -g generator-node-lib
+npm install -g @renke/generator-node-lib
 ```
 
 ## Usage
