@@ -30,5 +30,6 @@
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-import": "^0.12.1",
     "watch": "^0.17.1"
-  }
+  },
+  "license": "ISC"
 }
