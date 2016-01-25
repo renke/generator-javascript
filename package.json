@@ -32,7 +32,6 @@
     "watch": "^0.17.1"
   },
   "license": "ISC",
-  "private": true,
   "author": {
     "name": "Renke Grunwald",
     "email": "renke@renke.org"
