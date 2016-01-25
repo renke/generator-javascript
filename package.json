@@ -15,8 +15,6 @@
   ],
   "dependencies": {
     "lodash": "^4.0.0",
-    "react-addons-update": "^0.14.6",
-    "sort-package-json": "^1.2.0",
     "yeoman-generator": "^0.20.2"
   },
   "devDependencies": {
