@@ -6,6 +6,7 @@ import {kebabCase, camelCase} from "lodash";
 import makeScriptName from "../app/makeScriptName";
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
+import {addSequentialTask} from "../app/editor/npmScript";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
@@ -47,22 +48,18 @@ module.exports = generator.Base.extend({
 
     this.fs.copy(this.templatePath("babelrc"), this.destinationPath(".babelrc"));
 
+    this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
+
     mergePackage(this.fs, this.destinationPath("package.json"), {
       main: targetDirectory,
 
       scripts: {
-        "prepublish": `npm run --production ${makeScriptName("build", scriptSuffix)}`,
         [makeScriptName("build", scriptSuffix)]: `babel ${sourceDirectory} --out-dir ${targetDirectory}`,
         [makeScriptName("watch:build", scriptSuffix)]: `babel ${sourceDirectory} --out-dir ${targetDirectory} --watch`,
       },
 
       devDependencies,
     });
-
-    addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
-      "/.babelrc",
-    ]);
-
 
     this.fs.copyTpl(
       this.templatePath("index.js.ejs"),
@@ -72,6 +69,10 @@ module.exports = generator.Base.extend({
         moduleName,
       },
     );
+
+    addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
+      "/.babelrc",
+    ]);
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       `/${sourceDirectory}`,

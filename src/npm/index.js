@@ -51,11 +51,13 @@ module.exports = generator.Base.extend({
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       "/.npmignore",
+      `${libraryName}-*.tgz`,
     ]);
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".gitignore"), [
       "/node_modules",
       "/npm-debug.log",
+      `${libraryName}-*.tgz`,
     ]);
   },
 

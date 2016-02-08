@@ -5,6 +5,7 @@ import generator from "yeoman-generator";
 import makeScriptName from "../app/makeScriptName";
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
+import {addSequentialTask} from "../app/editor/npmScript";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
@@ -68,9 +69,10 @@ module.exports = generator.Base.extend({
       }
     );
 
+    this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
+
     mergePackage(this.fs, this.destinationPath("package.json"), {
       scripts: {
-        // TODO: Prepublish?!
         [makeScriptName("start", scriptSuffix)]: "babel-node server.js",
         [makeScriptName("build", scriptSuffix)]: "webpack",
         [makeScriptName("watch:build", scriptSuffix)]: "webpack --watch",
@@ -80,6 +82,15 @@ module.exports = generator.Base.extend({
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       "webpack.config.babel.js",
+      "server.js",
+    ]);
+
+    addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
+      `/${sourceDirectory}`,
+    ]);
+
+    addIgnorePatternsToFile(this.fs, this.destinationPath(".gitignore"), [
+      `/${targetDirectory}`,
     ]);
   },
 
