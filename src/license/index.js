@@ -2,34 +2,22 @@ import * as q from "../app/questions";
 
 import generator from "yeoman-generator";
 
+import Interviewer from "../app/Interviewer";
 import {mergePackage} from "../app/editor/package";
 
 module.exports = generator.Base.extend({
   constructor() {
     generator.Base.apply(this, arguments);
-
-    this.answers = {};
   },
 
   prompting() {
-    const {authorName} = this.options;
+    const interviewer = new Interviewer(this.options);
 
-    const questions = [];
+    interviewer.ask("authorName", q.authorName(this.user.git.name()));
 
-    if (!authorName) {
-      questions.push(q.authorName(this.user.git.name()));
-    } else {
-      this.answers.authorName = authorName;
-    }
-
-    if (questions.length > 0) {
-      const done = this.async();
-
-      this.prompt(questions, answers => {
-        this.answers = answers;
-        done();
-      });
-    }
+    interviewer.prompt(this).then(answers => {
+      this.answers = answers;
+    });
   },
 
   configuring() {

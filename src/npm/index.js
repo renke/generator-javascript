@@ -3,6 +3,7 @@ import * as q from "../app/questions";
 import generator from "yeoman-generator";
 import {kebabCase, merge} from "lodash";
 
+import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
 
 module.exports = generator.Base.extend({
@@ -13,36 +14,15 @@ module.exports = generator.Base.extend({
   },
 
   prompting() {
-    const {libraryName, authorName, authorEmail} = this.options;
+    const interviewer = new Interviewer(this.options);
 
-    const questions = [];
+    interviewer.ask("libraryName", q.libraryName(this.destinationRoot()));
+    interviewer.ask("authorName", q.authorName(this.user.git.name()));
+    interviewer.ask("authorEmail", q.authorEmail(this.user.git.email()));
 
-    if (!libraryName) {
-      questions.push(q.libraryName(this.destinationRoot()));
-    } else {
-      this.answers.libraryName = libraryName;
-    }
-
-    if (!authorName) {
-      questions.push(q.authorName(this.user.git.name()));
-    } else {
-      this.answers.authorName = authorName;
-    }
-
-    if (!authorEmail) {
-      questions.push(q.authorEmail(this.user.git.email()));
-    } else {
-      this.answers.authorEmail = authorEmail;
-    }
-
-    if (questions.length > 0) {
-      const done = this.async();
-
-      this.prompt(questions, answers => {
-        this.answers = answers;
-        done();
-      });
-    }
+    interviewer.prompt(this).then(answers => {
+      this.answers = answers;
+    });
   },
 
   configuring() {

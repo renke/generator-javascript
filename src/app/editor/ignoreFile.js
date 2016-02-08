@@ -7,5 +7,9 @@ export function addIgnorePatternsToFile(fileSystem, filePath, patterns) {
 }
 
 export function addIgnorePatterns(ignoreFileContent, patterns) {
-  return (ignoreFileContent.trim() + EOL.repeat(2) + patterns.join(EOL)).trim();
+  const patternString = patterns.filter(pattern => {
+    return !ignoreFileContent.includes(pattern);
+  }).join(EOL);
+
+  return (ignoreFileContent.trim() + EOL.repeat(2) + patternString).trim();
 }

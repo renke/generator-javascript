@@ -30,3 +30,38 @@ export function authorEmail(defaultValue) {
     default: defaultValue,
   };
 }
+
+export function sourceDirectory(name) {
+  return {
+    type: "input",
+    name: "sourceDirectory",
+    message: `${name} source directory`,
+    default: "src",
+
+    validate(sourceDirectory) {
+      return sourceDirectory.length !== 0;
+    },
+  };
+}
+
+export function targetDirectory(name) {
+  return {
+    type: "input",
+    name: "targetDirectory",
+    message: `${name} target directory`,
+    default: "lib",
+
+    validate(targetDirectory) {
+      return targetDirectory.length !== 0;
+    },
+  };
+}
+
+export function scriptSuffix(name) {
+  return {
+    type: "input",
+    name: "scriptSuffix",
+    message: `${name} scripts suffix (as in "build:$suffix")`,
+    default: "",
+  };
+}

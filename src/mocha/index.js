@@ -3,6 +3,7 @@ import * as q from "../app/questions";
 import generator from "yeoman-generator";
 import {kebabCase, camelCase} from "lodash";
 
+import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
 import {mergePackage} from "../app/editor/package";
 
@@ -20,24 +21,13 @@ module.exports = generator.Base.extend({
   },
 
   prompting() {
-    const {libraryName} = this.options;
+    const interviewer = new Interviewer(this.options);
 
-    const questions = [];
+    interviewer.ask("libraryName", q.libraryName(this.destinationRoot()));
 
-    if (!libraryName) {
-      questions.push(q.libraryName(this.destinationRoot()));
-    } else {
-      this.answers.libraryName = libraryName;
-    }
-
-    if (questions.length > 0) {
-      const done = this.async();
-
-      this.prompt(questions, answers => {
-        this.answers = answers;
-        done();
-      });
-    }
+    interviewer.prompt(this).then(answers => {
+      this.answers = answers;
+    });
   },
 
   configuring() {

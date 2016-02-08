@@ -1,32 +1,23 @@
+import * as q from "../app/questions";
+
 import generator from "yeoman-generator";
 import {kebabCase} from "lodash";
 
-import * as q from "../app/questions";
+import Interviewer from "../app/Interviewer";
 
 module.exports = generator.Base.extend({
   constructor() {
     generator.Base.apply(this, arguments);
-
-    this.answers = {};
   },
 
   prompting() {
-    const {libraryName} = this.options;
+    const interviewer = new Interviewer(this.options);
 
-    if (!libraryName) {
-      const questions = [
-        q.libraryName(this.destinationRoot()),
-      ];
+    interviewer.ask("libraryName", q.libraryName(this.destinationRoot()));
 
-      const done = this.async();
-
-      this.prompt(questions, answers => {
-        this.answers = answers;
-        done();
-      });
-    } else {
-      this.answers.libraryName = libraryName;
-    }
+    interviewer.prompt(this).then(answers => {
+      this.answers = answers;
+    });
   },
 
   configuring() {
@@ -41,7 +32,5 @@ module.exports = generator.Base.extend({
         packageName,
       },
     );
-
-
   },
 });

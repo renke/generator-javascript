@@ -2,6 +2,7 @@ import * as q from "./questions";
 
 import generator from "yeoman-generator";
 
+import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
 import {mergePackage} from "../app/editor/package";
 
@@ -23,8 +24,6 @@ const subgenerators = [
 module.exports = generator.Base.extend({
   constructor() {
     generator.Base.apply(this, arguments);
-
-    this.answers = {};
   },
 
   _subgenerator(name, options) {
@@ -36,24 +35,19 @@ module.exports = generator.Base.extend({
   },
 
   prompting() {
-    const done = this.async();
+    const interviewer = new Interviewer(this.options);
 
-    const questions = [
-      q.libraryName(this.destinationRoot()),
+    interviewer.ask("libraryName", q.libraryName(this.destinationRoot()));
+    interviewer.ask("authorName", q.authorName(this.user.git.name()));
+    interviewer.ask("authorEmail", q.authorEmail(this.user.git.email()));
 
-      q.authorName(this.user.git.name()),
-      q.authorEmail(this.user.git.email()),
-    ];
-
-    this.prompt(questions, answers => {
+    interviewer.prompt(this).then(answers => {
       this.answers = answers;
 
       // Compose with subgenerators
       subgenerators.forEach(name => {
         this._subgenerator(name, answers);
       });
-
-      done();
     });
   },
 
