@@ -1,6 +1,6 @@
 {
   "name": "@renke/generator-javascript",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "renke's generator-javascript",
   "scripts": {
     "prepublish": "npm run build",
