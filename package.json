@@ -1,7 +1,7 @@
 {
-  "name": "@renke/generator-node-lib",
+  "name": "@renke/generator-javascript",
   "version": "0.6.2",
-  "description": "renke's generator-node-lib",
+  "description": "renke's generator-javascript",
   "scripts": {
     "prepublish": "npm run build",
     "build": "babel src -d generators && ./copy_templates.sh",
@@ -34,5 +34,6 @@
   "author": {
     "name": "Renke Grunwald",
     "email": "renke@renke.org"
-  }
+  },
+  "repository": "renke/generator-javascript"
 }
