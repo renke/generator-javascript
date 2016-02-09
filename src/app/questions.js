@@ -22,6 +22,19 @@ export function authorName(defaultValue) {
   };
 }
 
+export function githubUsername(defaultValue) {
+  return {
+    type: "input",
+    name: "githubUsername",
+    message: "Your GitHub username",
+    default: defaultValue,
+
+    validate(githubUsername) {
+      return githubUsername.length !== 0;
+    },
+  };
+}
+
 export function authorEmail(defaultValue) {
   return {
     type: "input",

@@ -6,8 +6,8 @@ import {kebabCase, camelCase} from "lodash";
 import makeScriptName from "../app/makeScriptName";
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
+import {mergeData} from "../app/editor/json";
 import {addSequentialTask} from "../app/editor/npmScript";
-import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
   "babel-cli": "^6",
@@ -46,11 +46,9 @@ module.exports = generator.Base.extend({
     const packageName = kebabCase(libraryName);
     const moduleName = camelCase(libraryName);
 
-    this.fs.copy(this.templatePath("babelrc"), this.destinationPath(".babelrc"));
-
     this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
 
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergeData(this.destinationPath("package.json"), {
       main: targetDirectory,
 
       scripts: {
@@ -69,6 +67,17 @@ module.exports = generator.Base.extend({
         moduleName,
       },
     );
+
+    this::mergeData(this.destinationPath(".babelrc"), {
+      "presets": [
+        "es2015",
+        "stage-0",
+      ],
+
+      "plugins": [
+        "transform-decorators-legacy",
+      ],
+    });
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       "/.babelrc",

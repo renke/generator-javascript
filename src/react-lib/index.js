@@ -15,6 +15,7 @@ const otherGenerators = [
   "mocha",
   "npm",
   "readme",
+  "react",
 ];
 
 module.exports = generator.Base.extend({

@@ -10,6 +10,7 @@ const otherGenerators = [
   "editorconfig",
   "eslint",
   "git",
+  "github",
   "license",
   "mocha",
   "npm",

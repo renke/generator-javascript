@@ -11,7 +11,7 @@ module.exports = generator.Base.extend({
 
     stat(this.destinationPath(".git"), err => {
       if (err !== null) { // Directory doesn't exist
-        this.spawnCommandSync("git", ["init"]);
+        this.spawnCommandSync("git", ["init"]);            
         this.spawnCommandSync("git", ["commit", "--allow-empty", "-m", "Empty commit"]);
         this.spawnCommandSync("git", ["add", "."]);
         this.spawnCommandSync("git", ["commit", "-m", "Initial commit"]);

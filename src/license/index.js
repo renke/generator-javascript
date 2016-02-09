@@ -3,7 +3,7 @@ import * as q from "../app/questions";
 import generator from "yeoman-generator";
 
 import Interviewer from "../app/Interviewer";
-import {mergePackage} from "../app/editor/package";
+import {mergeData} from "../app/editor/json";
 
 module.exports = generator.Base.extend({
   constructor() {
@@ -32,10 +32,8 @@ module.exports = generator.Base.extend({
       },
     );
 
-    const packageData = {
+    this::mergeData(this.destinationPath("package.json"), {
       license: "ISC",
-    };
-
-    mergePackage(this.fs, this.destinationPath("package.json"), packageData);
+    });
   },
 });

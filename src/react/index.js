@@ -1,11 +1,8 @@
-import * as q from "../app/questions";
-
 import generator from "yeoman-generator";
-import {kebabCase, camelCase} from "lodash";
 
 import Interviewer from "../app/Interviewer";
-import {mergePackage} from "../app/editor/package";
 import {mergeData} from "../app/editor/json";
+import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
   "react": "^0",
@@ -19,7 +16,6 @@ const devDependencies = {
   "react-transform-catch-errors": "^1",
   "redbox-react": "^1",
 };
-
 
 module.exports = generator.Base.extend({
   constructor() {

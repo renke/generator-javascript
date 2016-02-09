@@ -1,10 +1,11 @@
 import * as q from "../app/questions";
 
 import generator from "yeoman-generator";
-import {kebabCase, merge} from "lodash";
+import {kebabCase} from "lodash";
 
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
+import {mergeData} from "../app/editor/json";
 
 module.exports = generator.Base.extend({
   constructor() {
@@ -30,9 +31,7 @@ module.exports = generator.Base.extend({
 
     const packageName = kebabCase(libraryName);
 
-    const oldPackageData = this.fs.readJSON(this.destinationPath("package.json"), {});
-
-    const packageData = {
+    this::mergeData(this.destinationPath("package.json"), {
       name: packageName,
       version: "0.0.0",
       description: libraryName,
@@ -43,11 +42,7 @@ module.exports = generator.Base.extend({
         name: authorName,
         email: authorEmail,
       },
-    };
-
-    const newPackageData = merge(oldPackageData, packageData);
-
-    this.fs.writeJSON(this.destinationPath("package.json"), newPackageData);
+    });
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       "/.npmignore",
