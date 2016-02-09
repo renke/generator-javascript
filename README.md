@@ -10,6 +10,15 @@ npm install -g yo @renke/generator-javascript
 
 ### Main generators
 
+Create your project directory and make it your current directory.
+
+```sh
+mkdir your-project
+cd your-project
+```
+
+Choose one of the main generators listed below.
+
 #### Node library
 
 ```sh
