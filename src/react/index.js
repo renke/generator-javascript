@@ -5,8 +5,6 @@ import {mergeData} from "../app/editor/json";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
-  "react": "^0",
-  "react-dom": "^0",
   "babel-preset-react": "^6",
 
   "babel-plugin-react-transform": "^2",
@@ -15,6 +13,11 @@ const devDependencies = {
 
   "react-transform-catch-errors": "^1",
   "redbox-react": "^1",
+};
+
+const peerDependencies = {
+  "react": "^0",
+  "react-dom": "^0",
 };
 
 module.exports = generator.Base.extend({
@@ -33,6 +36,7 @@ module.exports = generator.Base.extend({
   configuring() {
     mergePackage(this.fs, this.destinationPath("package.json"), {
       devDependencies,
+      peerDependencies,
     });
 
     this::mergeData(this.destinationPath(".babelrc"), {
