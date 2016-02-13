@@ -18,6 +18,9 @@ const devDependencies = {
   "babel-preset-react": "^6",
 
   "babel-plugin-transform-decorators-legacy": "^1",
+
+  // TODO: Maybe move this into a babel-lib generator?!
+  "babel-plugin-transform-runtime": "^6",
 };
 
 const NAME = "Babel";
@@ -76,6 +79,7 @@ module.exports = generator.Base.extend({
 
       "plugins": [
         "transform-decorators-legacy",
+        "transform-runtime",
       ],
     });
 
