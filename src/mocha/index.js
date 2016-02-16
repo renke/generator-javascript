@@ -45,7 +45,7 @@ module.exports = generator.Base.extend({
       },
     );
 
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergePackage( {
       scripts: {
         "test": "mocha --compilers js:babel-register",
         "watch:test": "mocha --compilers js:babel-register --watch",

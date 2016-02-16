@@ -21,7 +21,7 @@ module.exports = generator.Base.extend({
   configuring() {
     this.fs.copy(this.templatePath("eslintrc"), this.destinationPath(".eslintrc"));
 
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergePackage( {
       scripts: {
         "check": "eslint src test",
         "watch:check": 'watch "npm run check --silent"',

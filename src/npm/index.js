@@ -5,7 +5,7 @@ import {kebabCase} from "lodash";
 
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
-import {mergeData} from "../app/editor/json";
+import {mergeJSON} from "../app/editor/json";
 
 module.exports = generator.Base.extend({
   constructor() {
@@ -31,7 +31,7 @@ module.exports = generator.Base.extend({
 
     const packageName = kebabCase(libraryName);
 
-    this::mergeData(this.destinationPath("package.json"), {
+    this::mergeJSON(this.destinationPath("package.json"), {
       name: packageName,
       version: "0.0.0",
       description: libraryName,

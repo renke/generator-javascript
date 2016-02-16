@@ -6,7 +6,7 @@ import {kebabCase, camelCase} from "lodash";
 import makeScriptName from "../app/makeScriptName";
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
-import {mergeData} from "../app/editor/json";
+import {mergeJSON} from "../app/editor/json";
 import {addSequentialTask} from "../app/editor/npmScript";
 
 const devDependencies = {
@@ -21,6 +21,10 @@ const devDependencies = {
 
   // TODO: Maybe move this into a babel-lib generator?!
   "babel-plugin-transform-runtime": "^6",
+};
+
+const dependencies = {
+  "babel-runtime": "^6",
 };
 
 const NAME = "Babel";
@@ -51,7 +55,7 @@ module.exports = generator.Base.extend({
 
     this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
 
-    this::mergeData(this.destinationPath("package.json"), {
+    this::mergeJSON(this.destinationPath("package.json"), {
       main: targetDirectory,
 
       scripts: {
@@ -60,6 +64,7 @@ module.exports = generator.Base.extend({
       },
 
       devDependencies,
+      dependencies,
     });
 
     this.fs.copyTpl(
@@ -71,7 +76,7 @@ module.exports = generator.Base.extend({
       },
     );
 
-    this::mergeData(this.destinationPath(".babelrc"), {
+    this::mergeJSON(this.destinationPath(".babelrc"), {
       "presets": [
         "es2015",
         "stage-0",

@@ -4,7 +4,7 @@ import generator from "yeoman-generator";
 import {stat} from "fs";
 
 import Interviewer from "../app/Interviewer";
-import {mergeData} from "../app/editor/json";
+import {mergeJSON} from "../app/editor/json";
 
 module.exports = generator.Base.extend({
   constructor() {
@@ -26,7 +26,7 @@ module.exports = generator.Base.extend({
   configuring() {
     const {libraryName, githubUsername} = this.answers;
 
-    this::mergeData(this.destinationPath("package.json"), {
+    this::mergeJSON(this.destinationPath("package.json"), {
       repository: buildRepositoryName(libraryName, githubUsername),
     });
   },

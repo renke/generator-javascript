@@ -10,7 +10,7 @@ module.exports = generator.Base.extend({
   },
 
   configuring() {
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergePackage( {
       scripts: {
         "generate": `yo ${GENERATOR_NAME}`,
       },

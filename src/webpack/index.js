@@ -71,7 +71,7 @@ module.exports = generator.Base.extend({
 
     this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
 
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergePackage( {
       scripts: {
         [makeScriptName("start", scriptSuffix)]: "babel-node server.js",
         [makeScriptName("build", scriptSuffix)]: "webpack",

@@ -1,7 +1,7 @@
 import generator from "yeoman-generator";
 
 import Interviewer from "../app/Interviewer";
-import {mergeData} from "../app/editor/json";
+import {mergeJSON} from "../app/editor/json";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
@@ -34,12 +34,12 @@ module.exports = generator.Base.extend({
   },
 
   configuring() {
-    mergePackage(this.fs, this.destinationPath("package.json"), {
+    this::mergePackage( {
       devDependencies,
       peerDependencies,
     });
 
-    this::mergeData(this.destinationPath(".babelrc"), {
+    this::mergeJSON(this.destinationPath(".babelrc"), {
       // TODO: "Merge" arrays by concat()
       presets: [
         "es2015",
