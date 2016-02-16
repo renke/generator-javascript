@@ -10,7 +10,7 @@ const otherGenerators = [
   "editorconfig",
   "eslint",
   "git",
-  "github",  
+  "github",
   "license",
   "mocha",
   "npm",
@@ -43,6 +43,10 @@ module.exports = generator.Base.extend({
         targetDirectory: "lib",
         scriptSuffix: "",
       });
+
+      this::useGenerator("babel-lib", {
+        ...answers,
+      });      
 
       this::useGenerator("webpack", {
         ...answers,

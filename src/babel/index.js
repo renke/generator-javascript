@@ -6,7 +6,8 @@ import {kebabCase, camelCase} from "lodash";
 import makeScriptName from "../app/makeScriptName";
 import Interviewer from "../app/Interviewer";
 import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
-import {mergeJSON} from "../app/editor/json";
+import {mergeJSON, BABEL_CONFIG_ORDER} from "../app/editor/json";
+import {mergePackage} from "../app/editor/package";
 import {addSequentialTask} from "../app/editor/npmScript";
 
 const devDependencies = {
@@ -18,13 +19,6 @@ const devDependencies = {
   "babel-preset-react": "^6",
 
   "babel-plugin-transform-decorators-legacy": "^1",
-
-  // TODO: Maybe move this into a babel-lib generator?!
-  "babel-plugin-transform-runtime": "^6",
-};
-
-const dependencies = {
-  "babel-runtime": "^6",
 };
 
 const NAME = "Babel";
@@ -55,7 +49,7 @@ module.exports = generator.Base.extend({
 
     this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
 
-    this::mergeJSON(this.destinationPath("package.json"), {
+    this::mergePackage(this.destinationPath("package.json"), {
       main: targetDirectory,
 
       scripts: {
@@ -64,7 +58,6 @@ module.exports = generator.Base.extend({
       },
 
       devDependencies,
-      dependencies,
     });
 
     this.fs.copyTpl(
@@ -84,9 +77,8 @@ module.exports = generator.Base.extend({
 
       "plugins": [
         "transform-decorators-legacy",
-        "transform-runtime",
       ],
-    });
+    }, BABEL_CONFIG_ORDER);
 
     addIgnorePatternsToFile(this.fs, this.destinationPath(".npmignore"), [
       "/.babelrc",

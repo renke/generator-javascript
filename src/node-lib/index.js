@@ -43,6 +43,10 @@ module.exports = generator.Base.extend({
         targetDirectory: "lib",
         scriptSuffix: "",
       });
+
+      this::useGenerator("babel-lib", {
+        ...answers,
+      });
     });
   },
 });

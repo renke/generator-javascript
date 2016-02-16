@@ -1,3 +1,5 @@
+import * as q from "../app/questions";
+
 import generator from "yeoman-generator";
 
 import Interviewer from "../app/Interviewer";
@@ -5,19 +7,11 @@ import {mergeJSON, BABEL_CONFIG_ORDER} from "../app/editor/json";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
-  "babel-preset-react": "^6",
-
-  "babel-plugin-react-transform": "^2",
-
-  "react-transform-hmr": "^0",
-
-  "react-transform-catch-errors": "^1",
-  "redbox-react": "^1",
+  "babel-plugin-transform-runtime": "^6",
 };
 
-const peerDependencies = {
-  "react": "^0",
-  "react-dom": "^0",
+const dependencies = {
+  "babel-runtime": "^6",
 };
 
 module.exports = generator.Base.extend({
@@ -34,31 +28,22 @@ module.exports = generator.Base.extend({
   },
 
   configuring() {
-    this::mergePackage( {
+    this::mergePackage({
       devDependencies,
-      peerDependencies,
+      dependencies,
     });
 
     this::mergeJSON(this.destinationPath(".babelrc"), {
-      // TODO: "Merge" arrays by concat()
-      presets: [
+      "presets": [
         "es2015",
         "stage-0",
-        "react",
       ],
 
-      // TODO: Make is a little prettier
-      env: { development: { plugins: [[ "react-transform", { "transforms": [
-        {
-          "transform": "react-transform-hmr",
-          "imports": ["react"],
-          "locals": ["module"],
-        },
-        {
-          "transform": "react-transform-catch-errors",
-          "imports": ["react", "redbox-react"],
-        },
-      ]}]]}},
+      "plugins": [
+        "add-module-exports",
+        "transform-decorators-legacy",
+        "transform-runtime",
+      ],
     }, BABEL_CONFIG_ORDER);
   },
 
