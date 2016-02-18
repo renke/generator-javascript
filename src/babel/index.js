@@ -49,7 +49,7 @@ module.exports = generator.Base.extend({
 
     this::addSequentialTask("prepublish", `npm run --production ${makeScriptName("build", scriptSuffix)}`);
 
-    this::mergePackage(this.destinationPath("package.json"), {
+    this::mergePackage({
       main: targetDirectory,
 
       scripts: {

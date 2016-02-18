@@ -34,7 +34,7 @@ module.exports = generator.Base.extend({
   },
 
   configuring() {
-    this::mergePackage( {
+    this::mergePackage({
       devDependencies,
       peerDependencies,
     });
