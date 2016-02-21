@@ -8,7 +8,6 @@ import Interviewer from "../app/Interviewer";
 const otherGenerators = [
   "app",
   "editorconfig",
-  "eslint",
   "git",
   "github",
   "license",
@@ -58,6 +57,15 @@ module.exports = generator.Base.extend({
         targetDirectory: "example/lib",
         scriptSuffix: "example",
       });
+
+      this::useGenerator("eslint", {
+        ...answers,
+        eslintConfigName: "react-lib",
+      });
+
+      this::useGenerator("eslint-mocha", {
+        ...answers,
+      });      
     });
   },
 });

@@ -8,6 +8,7 @@ import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
   "babel-plugin-transform-runtime": "^6",
+  "babel-plugin-add-module-exports": "^0",
 };
 
 const dependencies = {
