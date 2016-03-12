@@ -5,6 +5,9 @@ import {mergeJSON, BABEL_CONFIG_ORDER} from "../app/editor/json";
 import {mergePackage} from "../app/editor/package";
 
 const devDependencies = {
+  "react": "^0.14",
+  "react-dom": "^0.14",
+  
   "babel-preset-react": "^6",
 
   "babel-plugin-react-transform": "^2",
