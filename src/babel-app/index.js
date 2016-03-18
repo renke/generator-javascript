@@ -9,16 +9,7 @@ import {addIgnorePatternsToFile} from "../app/editor/ignoreFile";
 import {addSequentialTask} from "../app/editor/npmScript";
 import {mergePackage} from "../app/editor/package";
 
-const devDependencies = {
-  "babel-plugin-transform-runtime": "^6",
-  "babel-plugin-add-module-exports": "^0",
-};
-
-const dependencies = {
-  "babel-runtime": "^6",
-};
-
-const NAME = "Babel library";
+const NAME = "Babel";
 
 module.exports = generator.Base.extend({
   constructor() {
@@ -53,9 +44,6 @@ module.exports = generator.Base.extend({
         [makeScriptName("build", scriptSuffix)]: `babel ${sourceDirectory} --out-dir ${targetDirectory}`,
         [makeScriptName("watch:build", scriptSuffix)]: `babel ${sourceDirectory} --out-dir ${targetDirectory} --watch`,
       },
-
-      devDependencies,
-      dependencies,
     });
 
     this.fs.copyTpl(

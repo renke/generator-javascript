@@ -38,13 +38,13 @@ module.exports = generator.Base.extend({
 
       this::useGenerator("babel", {
         ...answers,
-        sourceDirectory: "src",
-        targetDirectory: "lib",
-        scriptSuffix: "",
       });
 
       this::useGenerator("babel-lib", {
         ...answers,
+        sourceDirectory: "src",
+        targetDirectory: "lib",
+        scriptSuffix: "",        
       });
 
       this::useGenerator("react", {
@@ -65,7 +65,7 @@ module.exports = generator.Base.extend({
 
       this::useGenerator("eslint-mocha", {
         ...answers,
-      });      
+      });
     });
   },
 });

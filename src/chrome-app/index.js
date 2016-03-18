@@ -40,16 +40,17 @@ module.exports = generator.Base.extend({
         ...answers,
       });
 
-      this::useGenerator("babel-lib", {
+      this::useGenerator("webpack", {
         ...answers,
         sourceDirectory: "src",
         targetDirectory: "lib",
         scriptSuffix: "",
       });
 
+      // TODO: chrome-app eslint config
       this::useGenerator("eslint", {
         ...answers,
-        eslintConfigName: "node-lib",
+        eslintConfigName: "browser-app",
       });
 
       this::useGenerator("eslint-mocha", {
