@@ -1,3 +1,5 @@
+__ATTENTION: This repository is currently unmaintained.__
+
 # renke's generator-javascript
 
 ## Installation
